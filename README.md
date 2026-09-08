@@ -11,7 +11,7 @@ product label is still *Plugins / GitHub App*).
 | **Notion-plain** | [`docs/notion-plain-docs.mdc`](./docs/notion-plain-docs.mdc) · [template](./docs/notion-plain-template.html) |
 | **Taste layer** | [`docs/ruben-taste-layer.mdc`](./docs/ruben-taste-layer.mdc) |
 | **Figma** | [Plugin file](https://www.figma.com/design/uAXScfeDW4A1wSTKv37T85/Plugin) — see [`FIGMA.md`](./FIGMA.md) |
-| **HTML delivery** | [`index.html`](./index.html) (+ GitHub Pages once enabled) |
+| **HTML delivery** | [`index.html`](./index.html) · https://rubenmango.github.io/plugins-github-App/ |
 | **Live JS** | [`assets/live-review.js`](./assets/live-review.js) — stage stepper for review chrome |
 | **Product source** | [`src/components/`](./src/components/) · [`src/lib/`](./src/lib/) · sync excerpts in [`src/`](./src/) |
 | **Decisions** | [`docs/DECISIONS.md`](./docs/DECISIONS.md) |
