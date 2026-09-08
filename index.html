@@ -42,6 +42,7 @@
   .tag{font-size:12.5px;font-weight:500;padding:2px 9px;border-radius:4px;background:var(--gray-bg);color:var(--muted)}
   .tag.holds{background:var(--green-bg);color:var(--green)}
   .tag.feature{background:#EDE9FE;color:var(--purple)}
+  .tag.blocked{background:var(--red-bg);color:var(--red)}
   h1{font-size:36px;line-height:1.2;margin:.1em 0 .3em;letter-spacing:-.01em;font-weight:700}
   .sub{font-size:16px;color:var(--muted);max-width:64ch;margin:0}
   .meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px}
@@ -138,12 +139,13 @@
 
   <nav class="toc">
     <a href="#directions">00 Pull vs Push</a>
-    <a href="#live">01 Live review</a>
-    <a href="#flows">02 Flows</a>
-    <a href="#shots">03 Screenshots</a>
-    <a href="#spec">04 Spec</a>
-    <a href="#roads">05 Roads not taken</a>
-    <a href="#code">06 Code</a>
+    <a href="#gap">01 What exists</a>
+    <a href="#live">02 Live review</a>
+    <a href="#flows">03 Flows</a>
+    <a href="#shots">04 Screenshots</a>
+    <a href="#spec">05 Spec</a>
+    <a href="#roads">06 Roads not taken</a>
+    <a href="#code">07 Code</a>
   </nav>
 
   <div class="callout"><b>Docs chrome vs product.</b> This page uses Notion-plain. Review chrome tokens (green / GitHub purple, top action dock) follow the Plugin Figma file — system wins.</div>
@@ -192,8 +194,35 @@
     </ul>
   </section>
 
+  <section id="gap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>What exists, what's missing</h2></div>
+    <p class="sec-sub">Four stages. This page is stage 3.</p>
+
+    <table class="tbl">
+      <thead><tr><th>Stage</th><th>State</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Connect GitHub</strong></td><td><span class="tag holds">Shipped</span></td><td>AT-517, AT-513, AT-415</td></tr>
+        <tr><td><strong>Generate from source files</strong></td><td><span class="tag holds">Shipped</span></td><td>AT-505, AT-506</td></tr>
+        <tr><td><strong>Import existing diagrams</strong></td><td><span class="tag blocked">Blocked</span></td><td>AT-37 — branch pushed 4 May, Blocked same day, 7 sprints since</td></tr>
+        <tr><td><strong>Review &amp; push back</strong></td><td><span class="tag feature">Prototyped</span></td><td>This page, + AT-413 released</td></tr>
+        <tr><td><strong>Stay synced</strong></td><td><span class="tag blocked">Not started</span></td><td>Needs a link record — nothing today</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top:18px">
+      <b>The missing piece is one record.</b> <code>{ repo, branch, path, diagramID, direction, lastSyncedSHA }</code> — everything shipped is one-shot: import once, generate once, regenerate once. The dashboard already renders "GitHub-linked diagrams," which assumes this exists. It doesn't. This plus its fan-out is the only genuinely new backend work.
+    </div>
+
+    <h3 style="font-size:15px;margin:22px 0 8px;font-weight:600;color:var(--ink)">Three numbers</h3>
+    <ul class="flow">
+      <li><strong>40.5k</strong> bot regenerations / 60d, at a new high — the repo side already runs at scale, and knows nothing about cloud diagrams.</li>
+      <li><strong>63k vs 15</strong> — Generate-from-Code vs pre-commit auto-regenerate, 30d. Users pull happily and never accept an automatic push. Sync must be offered, not performed.</li>
+      <li><strong>2%</strong> activation&rarr;login in VS Code (609k &rarr; 11.7k / 90d). The IDE review surface has run ~10 resolution actions in 90 days — not because it's bad, because of that ceiling. Web app users are already signed in. That's the case for doing this app-side.</li>
+    </ul>
+  </section>
+
   <section id="live">
-    <div class="sec-head"><span class="sec-num">01</span><h2>Live review chrome</h2></div>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Live review chrome</h2></div>
     <p class="sec-sub">This stepper is the <strong>additive review / push</strong> layer (not the open-only V1). Step through Discard/Approve → Push → merged.</p>
     <div class="seeds">
       <button type="button" data-seed="pending">Pending</button>
@@ -207,7 +236,7 @@
   </section>
 
   <section id="flows">
-    <div class="sec-head"><span class="sec-num">02</span><h2>User flows</h2></div>
+    <div class="sec-head"><span class="sec-num">03</span><h2>User flows</h2></div>
     <p class="sec-sub">Thin V1 (open) vs full review+push. Same editor shell.</p>
 
     <h3 style="font-size:15px;margin:0 0 8px;font-weight:600">A · V1 open-only (no PR review panel)</h3>
@@ -236,7 +265,7 @@
   </section>
 
   <section id="shots">
-    <div class="sec-head"><span class="sec-num">03</span><h2>Screenshots</h2></div>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Screenshots</h2></div>
     <p class="sec-sub">Captured from the live local mimic (1440×900).</p>
     <div class="grid two">
       <figure>
@@ -271,7 +300,7 @@
   </section>
 
   <section id="spec">
-    <div class="sec-head"><span class="sec-num">04</span><h2>Spec highlights</h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Spec highlights</h2></div>
     <ul class="flow">
       <li><strong>Pull ≠ Push.</strong> Pull opens Git content in Mermaid; push writes Mermaid content to Git. Review UI is optional on top.</li>
       <li><strong>V1 open-only is valid</strong> — both directions without Discard/Approve.</li>
@@ -279,11 +308,13 @@
       <li><strong>GitHub green → purple</strong> — open/review vs merged / pushed-to chip.</li>
       <li><strong>One diagram per review</strong> when using review mode — no version history in v1.</li>
       <li><strong>Dashboard GitHub nav</strong> — Connected repos + branded Connect tile.</li>
+      <li><strong>On-demand pull, never background push</strong> — 63k Generate-from-Code vs 15 pre-commit regenerate in 30d.</li>
+      <li><strong>Multi-diagram is a refactor, not a rewrite</strong> — the review list already ships in VS Code (PLUG-73); PLUG-82 extracts the shared diff component and is still To Do. Import produces many diagrams at once, so the one-per-review limit bites immediately.</li>
     </ul>
   </section>
 
   <section id="roads">
-    <div class="sec-head"><span class="sec-num">05</span><h2>Roads not taken</h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Roads not taken</h2></div>
     <p class="sec-sub">See <a href="./docs/DECISIONS.md">DECISIONS.md</a> for the full log.</p>
     <ul class="flow">
       <li>Split DiffPane — parked; single canvas + pill toggle.</li>
@@ -293,7 +324,7 @@
   </section>
 
   <section id="code">
-    <div class="sec-head"><span class="sec-num">06</span><h2>Code to integrate</h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2>Code to integrate</h2></div>
     <p class="sec-sub">Copy paths and checklist in <a href="./docs/INTEGRATION.md">INTEGRATION.md</a>.</p>
     <ul class="flow">
       <li><code>src/components/ReviewActionBar.svelte</code></li>
