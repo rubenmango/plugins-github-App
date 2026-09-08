@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plugins / GitHub App — Developer delivery</title>
+<!--
+  Docs chrome: Notion-plain (docs/notion-plain-docs.mdc)
+  Judgement:   docs/ruben-taste-layer.mdc
+  Product UI:  Figma Plugin file (system wins)
+-->
+<style>
+  :root{
+    --ink:#37352F; --muted:#787774; --faint:#9B9A97;
+    --line:#E9E9E7; --line-soft:#EDEDEC; --bg:#FFFFFF; --card:#FFFFFF; --tint:#F7F6F3;
+    --pink:#AD1A72; --purple:#5B4FC4;
+    --green:#448361; --green-bg:#EDF3EC;
+    --amber:#9F6B17; --amber-bg:#FBF3DB;
+    --red:#C4554D; --red-bg:#FBE4E2;
+    --gray-bg:#F1F1EF; --radius:6px;
+    /* Product */
+    --storm-25:#fcfcfd; --storm-50:#f2f3f7; --storm-100:#e4e4eb; --storm-200:#cecedb;
+    --deep-800:#1e1a2e; --status:#058565; --seaweed-25:#f8fffc;
+    --gh-purple:#8250df; --gh-purple-border:#9266e3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif;
+    font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:740px;margin:0 auto;padding:48px 24px 120px}
+  a{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(55,53,47,.25);text-underline-offset:2px}
+  a:hover{text-decoration-color:var(--ink)}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+  .topbar-left{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--faint);font-weight:500;letter-spacing:.02em}
+  .logo{width:18px;height:18px;border-radius:4px;background:var(--ink);display:inline-block;flex-shrink:0}
+  .topbar-links{display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:13px}
+  .topbar-links a{color:var(--muted);text-decoration:none}
+  .topbar-links a:hover{color:var(--ink)}
+  .btn-primary{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--radius);background:var(--ink);color:#fff;font-size:13px;font-weight:500;text-decoration:none}
+  .btn-primary:hover{background:#000;color:#fff;text-decoration:none}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .tag{font-size:12.5px;font-weight:500;padding:2px 9px;border-radius:4px;background:var(--gray-bg);color:var(--muted)}
+  .tag.holds{background:var(--green-bg);color:var(--green)}
+  .tag.feature{background:#EDE9FE;color:var(--purple)}
+  h1{font-size:36px;line-height:1.2;margin:.1em 0 .3em;letter-spacing:-.01em;font-weight:700}
+  .sub{font-size:16px;color:var(--muted);max-width:64ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px}
+  .meta b{display:block;color:var(--faint);font-weight:500;font-size:12px;margin-bottom:2px}
+  .toc{display:flex;flex-wrap:wrap;gap:8px 16px;margin:28px 0 0;padding:14px 0;border-bottom:1px solid var(--line-soft);font-size:13px}
+  .toc a{color:var(--muted);text-decoration:none}
+  .toc a:hover{color:var(--ink)}
+  section{margin-top:44px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
+  .sec-num{font-size:13px;font-weight:600;color:var(--faint)}
+  h2{font-size:23px;margin:0;letter-spacing:-.01em;font-weight:700}
+  .sec-sub{font-size:14.5px;color:var(--muted);margin:10px 0 18px}
+  .callout{background:var(--tint);border:1px solid var(--line-soft);border-radius:var(--radius);padding:16px 18px;font-size:14.5px;line-height:1.6;margin-top:16px}
+  .flow{margin:0;padding-left:18px;font-size:14.5px;color:var(--muted)}
+  .flow li{margin:8px 0}
+  .flow strong{color:var(--ink)}
+  .tbl{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14px;margin-top:14px}
+  .tbl th{text-align:left;background:var(--tint);color:var(--muted);font-size:12.5px;font-weight:500;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .tbl td{padding:11px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .grid{display:grid;gap:20px;grid-template-columns:1fr;margin-top:8px}
+  @media (min-width:720px){.grid.two{grid-template-columns:1fr 1fr}}
+  figure{margin:0}
+  figure h3{margin:0 0 8px;font-size:13px;font-weight:500;color:var(--muted)}
+  .shot{display:block;width:100%;border-radius:var(--radius);border:1px solid var(--line);background:#fff}
+  .seeds{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+  .seeds button{font:inherit;font-size:12.5px;padding:4px 10px;border-radius:4px;border:1px solid var(--line);background:var(--gray-bg);color:var(--muted);cursor:pointer}
+  .seeds button.active,.seeds button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  #live-toast{position:fixed;bottom:20px;right:20px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;z-index:50}
+  .foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+  code{font-size:13px;background:var(--tint);padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  /* Live product chrome */
+  .lr-frame{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--storm-50)}
+  .lr-stage{position:relative;min-height:320px;padding:12px;background:
+    radial-gradient(circle,#cecedb 1px,transparent 1.2px) 0 0/20px 20px #fff}
+  .lr-top{display:flex;align-items:center;gap:8px}
+  .lr-name{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--storm-100);background:#fff;font-size:13px;display:flex;align-items:center;color:var(--deep-800)}
+  .lr-pill{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 8px 0 12px;border-radius:8px;font-size:12px;border:1px solid;cursor:default}
+  .lr-pill.review{border-color:var(--status);background:var(--seaweed-25);color:var(--status)}
+  .lr-pill.merged{border-color:var(--gh-purple-border);background:var(--storm-25);color:var(--gh-purple)}
+  .lr-pill .add{color:var(--status)}.lr-pill .rm{color:#eb1328}
+  .lr-action-dock{position:absolute;top:12px;left:50%;transform:translateX(-50%)}
+  .lr-bar{display:flex;align-items:center;gap:8px;height:48px;padding:0 8px;border-radius:12px;border:1px solid var(--storm-200);background:#fff;box-shadow:0 12px 24px rgba(0,0,0,.08)}
+  .lr-bar.quiet{box-shadow:none}
+  .lr-btn{font:inherit;font-size:14px;height:32px;padding:0 12px;border-radius:8px;cursor:pointer;border:1px solid transparent}
+  .lr-btn.ghost{border-color:rgba(0,0,0,.1);background:transparent;color:#242329}
+  .lr-btn.primary{background:var(--status);color:#fff;font-weight:600}
+  .lr-btn.secondary{background:var(--storm-50);border-color:var(--storm-200);color:var(--deep-800);font-weight:600}
+  .kbd{display:inline-flex;margin-left:6px;padding:0 4px;border-radius:4px;background:var(--seaweed-25);color:var(--status);font-weight:400}
+  .kbd.green{border:1px solid var(--status)}
+  .lr-chip{display:inline-flex;align-items:center;gap:4px;height:32px;padding:0 12px;border-radius:8px;font-size:12px;border:1px solid var(--status);background:var(--seaweed-25);color:var(--status)}
+  .lr-chip.open{border-color:var(--gh-purple);background:var(--storm-25);color:var(--gh-purple)}
+  .lr-chip.err{border-color:#cf222e;background:#cf222e;color:#fff}
+  .lr-label{font-size:14px;color:var(--deep-800)}.lr-label.muted{color:var(--muted)}
+  .lr-canvas{display:flex;gap:12px;justify-content:center;margin-top:72px;flex-wrap:wrap}
+  .lr-node{padding:10px 14px;border-radius:8px;border:1px solid var(--storm-200);background:#e8f4ff;font-size:12px;color:var(--deep-800)}
+  .lr-node.added{outline:2px solid var(--status);outline-offset:2px}
+  .lr-bottom{position:absolute;bottom:16px;left:50%;transform:translateX(-50%)}
+  .lr-ai{width:48px;height:48px;border-radius:999px;border:1px solid #bdbccc;background:#fff;box-shadow:0 12px 24px rgba(0,0,0,.08);cursor:pointer;font-size:18px;color:var(--purple)}
+  .lr-ico{display:inline-block;width:14px;height:14px;background:currentColor;
+    -webkit-mask:url('./assets/icons/octicon-git-pull-request.svg') center/contain no-repeat;
+    mask:url('./assets/icons/octicon-git-pull-request.svg') center/contain no-repeat}
+  .lr-ico.merge{-webkit-mask-image:url('./assets/icons/octicon-git-merge.svg');mask-image:url('./assets/icons/octicon-git-merge.svg')}
+  .lr-ico.pr-purple{background:var(--gh-purple);
+    -webkit-mask:url('./assets/icons/octicon-git-pull-request.svg') center/contain no-repeat;
+    mask:url('./assets/icons/octicon-git-pull-request.svg') center/contain no-repeat}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="topbar-left"><span class="logo"></span> MERMAID · PLUGINS · DELIVERY</div>
+    <div class="topbar-links">
+      <a href="./docs/DECISIONS.md">Decisions</a>
+      <a href="./docs/INTEGRATION.md">Integration</a>
+      <a href="./FIGMA.md">Figma</a>
+      <a class="btn-primary" href="https://www.figma.com/design/uAXScfeDW4A1wSTKv37T85/Plugin?node-id=344-26912" target="_blank" rel="noopener">Open Figma</a>
+    </div>
+  </div>
+
+  <div class="pill-row">
+    <span class="tag holds">● Prototype ready</span>
+    <span class="tag feature">Plugins / GitHub App</span>
+    <span class="tag">Updated 8 Sep 2026</span>
+  </div>
+  <h1>GitHub App → Mermaid.AI<br>PR review delivery</h1>
+  <p class="sub">Designer→developer handoff for the PR comment → login gate → unified editor review → push/merge → dashboard GitHub section loop.</p>
+  <div class="meta">
+    <div><b>Method</b>Working mimic + Figma Plugin chrome</div>
+    <div><b>Metric</b>Cohesive GitHub UX across plugins + platform</div>
+    <div><b>Author</b>Ruben Mangorrinha</div>
+  </div>
+
+  <nav class="toc">
+    <a href="#live">00 Live</a>
+    <a href="#flows">01 Flows</a>
+    <a href="#shots">02 Screenshots</a>
+    <a href="#spec">03 Spec</a>
+    <a href="#roads">04 Roads not taken</a>
+    <a href="#code">05 Code</a>
+  </nav>
+
+  <div class="callout"><b>Docs chrome vs product.</b> This page uses Notion-plain. Review chrome tokens (green / GitHub purple, top action dock) follow the Plugin Figma file — system wins.</div>
+
+  <section id="live">
+    <div class="sec-head"><span class="sec-num">00</span><h2>Live review chrome</h2></div>
+    <p class="sec-sub">Step through Discard/Approve → Push → merged. Sparkle simulates soft-dismiss toast.</p>
+    <div class="seeds">
+      <button type="button" data-seed="pending">Pending</button>
+      <button type="button" data-seed="ready">Push ready</button>
+      <button type="button" data-seed="pushing">Pushing</button>
+      <button type="button" data-seed="success">Pushed to</button>
+      <button type="button" data-seed="merged">Merged</button>
+      <button type="button" data-seed="error">Error</button>
+    </div>
+    <div class="lr-frame"><div id="live-review"></div></div>
+  </section>
+
+  <section id="flows">
+    <div class="sec-head"><span class="sec-num">01</span><h2>User flows</h2></div>
+    <p class="sec-sub">End-to-end paths in the running prototype.</p>
+    <ol class="flow">
+      <li><strong>Open from PR.</strong> Bot comment → <em>Open full review</em> → login gate (repo / PR #356 / file) → Sign in (mimic) → unified editor.</li>
+      <li><strong>Review on canvas.</strong> Green added nodes; pill <code>#356 +6 -0</code>; Design/Code via pill; Discard / Approve top-center; AI sparkle bottom-center.</li>
+      <li><strong>Approve &amp; push.</strong> Push to repo → Pushing… → Pushed to (purple open-PR chip) → exit; pill/tag become merged purple + merge icon.</li>
+      <li><strong>Soft-dismiss.</strong> Sparkle hides review chrome but keeps PR context; click pill to restart unfinished review. Hard Discard fully exits.</li>
+      <li><strong>Dashboard.</strong> Personal files exclude linked diagrams. <em>GitHub → Connected repos</em> lists them; <em>Connect GitHub repo</em> CTA is logo-branded.</li>
+    </ol>
+    <table class="tbl">
+      <thead><tr><th>Entry</th><th>URL</th></tr></thead>
+      <tbody>
+        <tr><td>Fake PR</td><td><code>localhost:3000/mermaid-sync/pr?…&amp;pr=356</code></td></tr>
+        <tr><td>Editor review</td><td><code>localhost:5173/?review=1&amp;…&amp;pr=356</code></td></tr>
+        <tr><td>Dashboard</td><td><code>localhost:5173/dashboard</code></td></tr>
+        <tr><td>Tunnel</td><td><code>https://repost-polymer-ambitious.ngrok-free.dev</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="shots">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Screenshots</h2></div>
+    <p class="sec-sub">Captured from the live local mimic (1440×900).</p>
+    <div class="grid two">
+      <figure>
+        <h3>01 · Fake PR comment</h3>
+        <img class="shot" src="./assets/screenshots/01-fake-pr-comment.png" alt="Fake GitHub PR with Mermaid Sync bot comment" />
+      </figure>
+      <figure>
+        <h3>02 · Login gate</h3>
+        <img class="shot" src="./assets/screenshots/02-login-gate.png" alt="Review login gate with PR meta" />
+      </figure>
+      <figure>
+        <h3>03 · Editor — review pending</h3>
+        <img class="shot" src="./assets/screenshots/03-editor-review-pending.png" alt="Unified editor with Discard Approve and green nodes" />
+      </figure>
+      <figure>
+        <h3>04 · Push ready</h3>
+        <img class="shot" src="./assets/screenshots/04-editor-push-ready.png" alt="Push to repo action bar" />
+      </figure>
+      <figure>
+        <h3>05 · Pushed / merged transition</h3>
+        <img class="shot" src="./assets/screenshots/05-editor-pushed.png" alt="After push confirmation" />
+      </figure>
+      <figure>
+        <h3>06 · Dashboard — Personal</h3>
+        <img class="shot" src="./assets/screenshots/06-dashboard-personal.png" alt="Personal files without GitHub cards" />
+      </figure>
+      <figure>
+        <h3>07 · Dashboard — GitHub + Connect CTA</h3>
+        <img class="shot" src="./assets/screenshots/07-dashboard-github.png" alt="GitHub section with connect tile and linked diagram" />
+      </figure>
+    </div>
+  </section>
+
+  <section id="spec">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Spec highlights</h2></div>
+    <ul class="flow">
+      <li><strong>Actions top / AI bottom</strong> — Product × Design Jul 23 (Martin).</li>
+      <li><strong>GitHub green → purple</strong> — open/review vs merged / pushed-to chip.</li>
+      <li><strong>One diagram per review</strong> — no version history in v1.</li>
+      <li><strong>PR remap</strong> — <code>pr=1</code> → <code>356</code> for old bookmarks.</li>
+      <li><strong>Dashboard GitHub nav</strong> — Connected repos + branded Connect tile.</li>
+    </ul>
+  </section>
+
+  <section id="roads">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Roads not taken</h2></div>
+    <p class="sec-sub">See <a href="./docs/DECISIONS.md">DECISIONS.md</a> for the full log.</p>
+    <ul class="flow">
+      <li>Split DiffPane — parked; single canvas + pill toggle.</li>
+      <li>Merge version history — later with engineering.</li>
+      <li>Hard-exit on AI sparkle — replaced with soft-dismiss.</li>
+    </ul>
+  </section>
+
+  <section id="code">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Code to integrate</h2></div>
+    <p class="sec-sub">Copy paths and checklist in <a href="./docs/INTEGRATION.md">INTEGRATION.md</a>.</p>
+    <ul class="flow">
+      <li><code>src/components/ReviewActionBar.svelte</code></li>
+      <li><code>src/components/DiagramBranchPill.svelte</code></li>
+      <li><code>src/components/RepoPrTag.svelte</code></li>
+      <li><code>src/lib/review/githubReviewSeed.ts</code></li>
+      <li><code>src/lib/stores/savedDiagrams.svelte.ts</code></li>
+      <li><code>src/reviewPrDemo.ts</code> · <code>reviewLanding.ts</code> · <code>demoDiagrams.ts</code></li>
+    </ul>
+  </section>
+
+  <div class="foot">
+    <b>Sources.</b>
+    <a href="https://www.figma.com/design/uAXScfeDW4A1wSTKv37T85/Plugin">Figma Plugin</a> ·
+    <a href="./README.md">README</a> ·
+    <a href="./docs/notion-plain-docs.mdc">Notion-plain</a> ·
+    <a href="./docs/ruben-taste-layer.mdc">Taste layer</a>
+  </div>
+</div>
+<div id="live-toast" hidden></div>
+<script src="./assets/live-review.js"></script>
+</body>
+</html>

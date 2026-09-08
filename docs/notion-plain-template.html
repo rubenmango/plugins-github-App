@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Notion-plain — starter template</title>
+<style>
+  :root{
+    --ink:#37352F; --muted:#787774; --faint:#9B9A97;
+    --line:#E9E9E7; --line-soft:#EDEDEC; --bg:#FFFFFF; --card:#FFFFFF; --tint:#F7F6F3;
+    --pink:#AD1A72; --purple:#5B4FC4;
+    --green:#448361; --green-bg:#EDF3EC;
+    --amber:#9F6B17; --amber-bg:#FBF3DB;
+    --red:#C4554D; --red-bg:#FBE4E2;
+    --gray-bg:#F1F1EF; --radius:6px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif;
+    font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:740px;margin:0 auto;padding:48px 24px 120px}
+  a{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(55,53,47,.25);text-underline-offset:2px}
+  a:hover{text-decoration-color:var(--ink)}
+  .topbar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--faint);font-weight:500;letter-spacing:.02em;margin-bottom:32px}
+  .logo{width:18px;height:18px;border-radius:4px;background:var(--ink);display:inline-block}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .tag{font-size:12.5px;font-weight:500;padding:2px 9px;border-radius:4px;background:var(--gray-bg);color:var(--muted)}
+  .tag.active{color:var(--green)}
+  h1{font-size:36px;line-height:1.2;margin:.1em 0 .3em;letter-spacing:-.01em;font-weight:700}
+  .sub{font-size:16px;color:var(--muted);max-width:64ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px}
+  .meta b{display:block;color:var(--faint);font-weight:500;font-size:12px;margin-bottom:2px}
+  section{margin-top:44px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
+  .sec-num{font-size:13px;font-weight:600;color:var(--faint)}
+  h2{font-size:23px;margin:0;letter-spacing:-.01em;font-weight:700}
+  .sec-sub{font-size:14.5px;color:var(--muted);margin:10px 0 18px}
+  .callout{background:var(--tint);border:1px solid var(--line-soft);border-radius:var(--radius);padding:16px 18px;font-size:14.5px;line-height:1.6}
+  .status{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;padding:2px 9px;border-radius:4px}
+  .status::before{content:"";width:7px;height:7px;border-radius:50%}
+  .holds{background:var(--green-bg);color:var(--green)} .holds::before{background:var(--green)}
+  .risk{background:var(--amber-bg);color:var(--amber)} .risk::before{background:var(--amber)}
+  .blind{background:var(--red-bg);color:var(--red)} .blind::before{background:var(--red)}
+  .tbl{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14px;margin-top:14px}
+  .tbl th{text-align:left;background:var(--tint);color:var(--muted);font-size:12.5px;font-weight:500;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .tbl td{padding:11px 14px;border-bottom:1px solid var(--line-soft);border-right:1px solid var(--line-soft);vertical-align:top}
+  .tbl td:last-child{border-right:none}
+  .tbl tr:last-child td{border-bottom:none}
+  .foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span class="logo"></span> ORG · TEAM · DOC TYPE</div>
+
+  <div class="pill-row">
+    <span class="tag active">● Active</span>
+    <span class="tag">Context tag</span>
+    <span class="tag">Updated DD Mon YYYY</span>
+  </div>
+  <h1>Page title<br>second line</h1>
+  <p class="sub">One sentence framing what this page is and the single question it answers.</p>
+  <div class="meta">
+    <div><b>Method</b>What you did</div>
+    <div><b>Metric</b>How success is judged</div>
+    <div><b>Author</b>Name</div>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>First section</h2></div>
+    <p class="sec-sub">Optional one-line subtitle.</p>
+    <div class="callout"><b>Headline.</b> A short, bolded takeaway in a tint callout.</div>
+    <table class="tbl">
+      <thead><tr><th>Thing</th><th>Verdict</th><th>The one move</th></tr></thead>
+      <tbody>
+        <tr><td>Item A</td><td><span class="status holds">Ship</span></td><td>What to do.</td></tr>
+        <tr><td>Item B</td><td><span class="status risk">Tweak</span></td><td>What to change first.</td></tr>
+        <tr><td>Item C</td><td><span class="status blind">Blind spot</span></td><td>What's unserved.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><b>Sources.</b> <a href="#">Link one</a> · <a href="#">Link two</a></div>
+</div>
+</body>
+</html>
