@@ -1,6 +1,20 @@
 # Integration — Plugins / GitHub App
 
-This package is a **design delivery** of a working prototype that spans two product repos.
+This **public** Pages package is handoff only (slide · screenshots · live stepper ·
+password gate). **Product source is private.**
+
+## Where the code lives
+
+| | |
+|---|---|
+| **Private Mermaid repo** | [`Mermaid-Chart/app-team`](https://github.com/Mermaid-Chart/app-team) (org access required) |
+| **Canonical `src/`** | [`handoffs/plugins-github-App/src/`](https://github.com/Mermaid-Chart/app-team/tree/main/handoffs/plugins-github-App/src) |
+| **This package** | Visual delivery only — https://rubenmango.github.io/plugins-github-App/ |
+
+```bash
+git clone git@github.com:Mermaid-Chart/app-team.git
+cd app-team/handoffs/plugins-github-App
+```
 
 ## Modes to implement
 
@@ -14,18 +28,18 @@ Do not require review chrome for open-only pull/push.
 
 ## Source map
 
-| Piece | Prototype path | Copy from this package |
-|---|---|---|
-| Review action bar | `Unified-editor-Onboarding/src/lib/components/ReviewActionBar.svelte` | `src/components/ReviewActionBar.svelte` |
-| Branch / PR pill | `…/DiagramBranchPill.svelte` | `src/components/DiagramBranchPill.svelte` |
-| Dashboard PR tag | `…/RepoPrTag.svelte` | `src/components/RepoPrTag.svelte` |
-| Review seed + params | `…/lib/review/githubReviewSeed.ts` | `src/lib/review/githubReviewSeed.ts` |
-| Saved diagrams + `linkedRepo` | `…/lib/stores/savedDiagrams.svelte.ts` | `src/lib/stores/savedDiagrams.svelte.ts` |
-| Fake PR HTML | `mermaid-sync-service/src/reviewPrDemo.ts` | `src/reviewPrDemo.ts` |
-| Login gate | `…/reviewLanding.ts` | `src/reviewLanding.ts` |
-| Demo diagrams | `…/demoDiagrams.ts` | `src/demoDiagrams.ts` |
+| Piece | Copy from private handoff |
+|---|---|
+| Review action bar | `src/components/ReviewActionBar.svelte` |
+| Branch / PR pill | `src/components/DiagramBranchPill.svelte` |
+| Dashboard PR tag | `src/components/RepoPrTag.svelte` |
+| Review seed + params | `src/lib/review/githubReviewSeed.ts` |
+| Saved diagrams + `linkedRepo` | `src/lib/stores/savedDiagrams.svelte.ts` |
+| Fake PR HTML | `src/reviewPrDemo.ts` |
+| Login gate | `src/reviewLanding.ts` |
+| Demo diagrams | `src/demoDiagrams.ts` |
 
-Also wire (not fully duplicated here — live in host apps):
+Also wire (live in host apps, not fully duplicated in the handoff):
 
 - `DiagramStage.svelte` — top `data-review-action-dock` + bottom AI dock; soft-dismiss on sparkle
 - `+page.svelte` — `branchState` machine, `githubReview`, push → `merged`
@@ -34,7 +48,7 @@ Also wire (not fully duplicated here — live in host apps):
 
 ## Icons
 
-Copy from `assets/icons/` into the editor `static/icons/`:
+From this Pages package `assets/icons/` → editor `static/icons/`:
 
 - `github.svg`, `octicon-git-pull-request.svg`, `octicon-git-merge.svg`, `octicon-git-pull-request-closed.svg`, `close-small.svg`
 
@@ -58,18 +72,6 @@ Copy from `assets/icons/` into the editor `static/icons/`:
 
 ### Review layer (additive)
 - [ ] Fake PR CTA opens login gate with **#356** meta link
-- [ ] Mimic sign-in lands in review mode with green added nodes
-- [ ] Discard / Approve float **top-center**; AI sparkle **bottom-center**
-- [ ] Pill shows `#356 +N -M` while pending; toggles Design/Code
-- [ ] Approve → Push → purple “Pushed to” → merged purple merge icon
-- [ ] Sparkle soft-dismisses; pill restarts unfinished review
-- [ ] Hard Discard exits review fully
-- [ ] Connect GitHub repo tile is logo-branded
-
-## Demo URLs
-
-```
-http://localhost:3000/mermaid-sync/pr?owner=rubenmango&repo=mermaid-bot-sandbox&pr=356&file=pr-review-architecture.mmd
-http://localhost:5173/?review=1&owner=rubenmango&repo=mermaid-bot-sandbox&pr=356&file=pr-review-architecture.mmd
-http://localhost:5173/dashboard
-```
+- [ ] Editor shows Discard / Approve top-center; AI sparkle bottom-center
+- [ ] Approve → Push to repo → Pushed to (purple) → merged pill/tag
+- [ ] Soft-dismiss via AI keeps `githubReview` for restart; Discard clears fully
