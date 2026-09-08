@@ -1,7 +1,8 @@
 # Plugins / GitHub App — Developer Delivery
 
-Shareable handoff for the **GitHub App → Mermaid.AI PR review** mimic
-(plugins ↔ platform bridge).
+Shareable handoff for **GitHub ↔ Mermaid.AI**: **pull** diagrams from Git into
+Mermaid, **push** them back, and optionally run a **PR review panel** in the
+same unified editor.
 
 Repo name: **`plugins-github-App`** (GitHub cannot use `/` in repo names; the
 product label is still *Plugins / GitHub App*).
@@ -12,11 +13,25 @@ product label is still *Plugins / GitHub App*).
 | **Taste layer** | [`docs/ruben-taste-layer.mdc`](./docs/ruben-taste-layer.mdc) |
 | **Figma** | [Plugin file](https://www.figma.com/design/uAXScfeDW4A1wSTKv37T85/Plugin) — see [`FIGMA.md`](./FIGMA.md) |
 | **HTML delivery** | [`index.html`](./index.html) · https://rubenmango.github.io/plugins-github-App/ |
-| **Live JS** | [`assets/live-review.js`](./assets/live-review.js) — stage stepper for review chrome |
+| **Live JS** | [`assets/live-review.js`](./assets/live-review.js) — review/push chrome stepper |
 | **Product source** | [`src/components/`](./src/components/) · [`src/lib/`](./src/lib/) · sync excerpts in [`src/`](./src/) |
-| **Decisions** | [`docs/DECISIONS.md`](./docs/DECISIONS.md) |
+| **Decisions** | [`docs/DECISIONS.md`](./docs/DECISIONS.md) — **pull vs push** called out first |
 | **Integration** | [`docs/INTEGRATION.md`](./docs/INTEGRATION.md) |
 | **Screenshots** | [`assets/screenshots/`](./assets/screenshots/) |
+
+---
+
+## Pull vs Push (read this first)
+
+| | **Pull** (Git → Mermaid) | **Push** (Mermaid → Git) |
+|---|---|---|
+| Job | Open a repo diagram in Mermaid | Write Mermaid changes back to Git |
+| V1 without PR review | **Yes** — just open | **Yes** — save/write to path/branch |
+| With review panel | Entry was a PR *diff* → Discard/Approve / Push stages on the same editor | After Approve, push sends the accepted after |
+
+**Vice versa:** start in Mermaid → connect GitHub → push a diagram up, still without requiring review chrome.
+
+The prototype’s live stepper demos the **review + push** layer; open-only is the thinner V1 path on the same shell.
 
 ---
 
@@ -46,12 +61,13 @@ cd ~/mermaid-sync-service && npm start
 
 ## User flows covered
 
-1. **PR comment → Open full review** (fake GitHub Conversation)
-2. **Login gate** (Sign in with GitHub / mimic)
-3. **Unified editor review** — green added nodes, `#356 +N -M` pill, Discard / Approve **top-center**, AI sparkle **bottom-center**
-4. **Approve → Push to repo → Pushed to** (purple open-PR chip) → **merged** pill
-5. **Soft-dismiss** via AI sparkle; pill restarts unfinished review
-6. **Dashboard** — Personal vs **GitHub → Connected repos** + **Connect GitHub repo** CTA
+**A — V1 open-only:** pull open → edit → optional push back (no review panel).
+
+**B — PR review + push (mimic):**
+1. PR comment → Open full review → login gate
+2. Unified editor review (top actions, bottom AI)
+3. Approve → Push → merged
+4. Dashboard GitHub section + Connect CTA
 
 ---
 

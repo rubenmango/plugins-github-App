@@ -128,8 +128,8 @@
     <span class="tag feature">Plugins / GitHub App</span>
     <span class="tag">Updated 8 Sep 2026</span>
   </div>
-  <h1>GitHub App → Mermaid.AI<br>PR review delivery</h1>
-  <p class="sub">Designer→developer handoff for the PR comment → login gate → unified editor review → push/merge → dashboard GitHub section loop.</p>
+  <h1>GitHub App ↔ Mermaid.AI<br>delivery</h1>
+  <p class="sub">Designer→developer handoff for two directions — <b>pull</b> diagrams from Git into Mermaid and <b>push</b> changes back — plus an optional PR review panel that lives inside the unified editor.</p>
   <div class="meta">
     <div><b>Method</b>Working mimic + Figma Plugin chrome</div>
     <div><b>Metric</b>Cohesive GitHub UX across plugins + platform</div>
@@ -137,19 +137,64 @@
   </div>
 
   <nav class="toc">
-    <a href="#live">00 Live</a>
-    <a href="#flows">01 Flows</a>
-    <a href="#shots">02 Screenshots</a>
-    <a href="#spec">03 Spec</a>
-    <a href="#roads">04 Roads not taken</a>
-    <a href="#code">05 Code</a>
+    <a href="#directions">00 Pull vs Push</a>
+    <a href="#live">01 Live review</a>
+    <a href="#flows">02 Flows</a>
+    <a href="#shots">03 Screenshots</a>
+    <a href="#spec">04 Spec</a>
+    <a href="#roads">05 Roads not taken</a>
+    <a href="#code">06 Code</a>
   </nav>
 
   <div class="callout"><b>Docs chrome vs product.</b> This page uses Notion-plain. Review chrome tokens (green / GitHub purple, top action dock) follow the Plugin Figma file — system wins.</div>
 
+  <section id="directions">
+    <div class="sec-head"><span class="sec-num">00</span><h2>Pull vs Push — keep them distinct</h2></div>
+    <p class="sec-sub">Same GitHub connection; two jobs. V1 can ship either alone; they also stack with the editor review panel.</p>
+
+    <table class="tbl">
+      <thead><tr><th></th><th>Pull (Git → Mermaid)</th><th>Push (Mermaid → Git)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Job</strong></td>
+          <td>Bring a diagram that already lives in a repo into Mermaid AI so the user can open and edit it.</td>
+          <td>Write Mermaid changes back to GitHub (commit / PR branch) after the user decides.</td>
+        </tr>
+        <tr>
+          <td><strong>Typical entry</strong></td>
+          <td>Bot comment · Connect repo CTA · dashboard GitHub section · “open this <code>.mmd</code>”.</td>
+          <td>After review Approve → <em>Push to repo</em>, or a later “save to Git” from a linked diagram.</td>
+        </tr>
+        <tr>
+          <td><strong>Needs PR review UI?</strong></td>
+          <td><strong>No for V1 open-only.</strong> Opening a file is enough — normal editor, no Discard/Approve bar.</td>
+          <td><strong>Optional.</strong> Full review panel when the change came from a PR diff; not required for a plain linked file save.</td>
+        </tr>
+        <tr>
+          <td><strong>Prototype today</strong></td>
+          <td>Gate + seed into unified editor; dashboard <em>Connected repos</em> + Connect CTA.</td>
+          <td>Review action bar stages: Approve → Pushing → Pushed to → merged pill.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top:18px">
+      <b>V1 can be open-only (both ways).</b>
+      Ship a thin loop first: <em>pull</em> = open a GitHub <code>.mmd</code> in Mermaid; <em>push</em> = write that diagram back to the same path/branch — <strong>without</strong> the PR review panel (no diff counts, no Discard/Approve). The review panel is an additive layer on the same editor when the entry was a PR change, not a separate product.
+    </div>
+
+    <h3 style="font-size:15px;margin:22px 0 8px;font-weight:600;color:var(--ink)">How they live together in the editor</h3>
+    <ul class="flow">
+      <li><strong>Always shared:</strong> unified canvas, AI sparkle, linked-repo metadata (owner / repo / file), dashboard GitHub section.</li>
+      <li><strong>Open-only mode (V1 thin):</strong> diagram loads like any Mermaid file; pill may show repo/PR as a <em>link badge</em> only — no review actions.</li>
+      <li><strong>Review mode (additive):</strong> same editor + top Discard/Approve (or Push stages) + green/red diff affordances + soft-dismiss via AI. Pull brought the before/after in; push sends the approved after back.</li>
+      <li><strong>Vice versa:</strong> user can start in Mermaid (create/edit), connect GitHub, and <em>push</em> a new or updated diagram into the repo — still without requiring a PR-review session.</li>
+    </ul>
+  </section>
+
   <section id="live">
-    <div class="sec-head"><span class="sec-num">00</span><h2>Live review chrome</h2></div>
-    <p class="sec-sub">Step through Discard/Approve → Push → merged. Sparkle simulates soft-dismiss toast.</p>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Live review chrome</h2></div>
+    <p class="sec-sub">This stepper is the <strong>additive review / push</strong> layer (not the open-only V1). Step through Discard/Approve → Push → merged.</p>
     <div class="seeds">
       <button type="button" data-seed="pending">Pending</button>
       <button type="button" data-seed="ready">Push ready</button>
@@ -162,14 +207,22 @@
   </section>
 
   <section id="flows">
-    <div class="sec-head"><span class="sec-num">01</span><h2>User flows</h2></div>
-    <p class="sec-sub">End-to-end paths in the running prototype.</p>
+    <div class="sec-head"><span class="sec-num">02</span><h2>User flows</h2></div>
+    <p class="sec-sub">Thin V1 (open) vs full review+push. Same editor shell.</p>
+
+    <h3 style="font-size:15px;margin:0 0 8px;font-weight:600">A · V1 open-only (no PR review panel)</h3>
     <ol class="flow">
-      <li><strong>Open from PR.</strong> Bot comment → <em>Open full review</em> → login gate (repo / PR #356 / file) → Sign in (mimic) → unified editor.</li>
-      <li><strong>Review on canvas.</strong> Green added nodes; pill <code>#356 +6 -0</code>; Design/Code via pill; Discard / Approve top-center; AI sparkle bottom-center.</li>
-      <li><strong>Approve &amp; push.</strong> Push to repo → Pushing… → Pushed to (purple open-PR chip) → exit; pill/tag become merged purple + merge icon.</li>
-      <li><strong>Soft-dismiss.</strong> Sparkle hides review chrome but keeps PR context; click pill to restart unfinished review. Hard Discard fully exits.</li>
-      <li><strong>Dashboard.</strong> Personal files exclude linked diagrams. <em>GitHub → Connected repos</em> lists them; <em>Connect GitHub repo</em> CTA is logo-branded.</li>
+      <li><strong>Pull open.</strong> From PR comment, Connect CTA, or Linked file → sign-in if needed → diagram opens in the unified editor as a normal linked file.</li>
+      <li><strong>Edit in Mermaid.</strong> Full AI / Build / Code — no Discard/Approve bar.</li>
+      <li><strong>Push back (optional).</strong> Save / write to the same Git path (vice versa: start in Mermaid → connect repo → push diagram up). Still no review chrome required.</li>
+    </ol>
+
+    <h3 style="font-size:15px;margin:22px 0 8px;font-weight:600">B · PR review + push (what the mimic demos today)</h3>
+    <ol class="flow">
+      <li><strong>Open from PR.</strong> Bot comment → <em>Open full review</em> → login gate (repo / PR #356 / file) → Sign in (mimic) → unified editor <em>in review mode</em>.</li>
+      <li><strong>Review on canvas.</strong> Green added nodes; pill <code>#356 +6 -0</code>; Design/Code via pill; Discard / Approve top-center; AI sparkle bottom-center (soft-dismiss / restart).</li>
+      <li><strong>Approve &amp; push.</strong> Push to repo → Pushing… → Pushed to (purple) → merged pill/tag on dashboard.</li>
+      <li><strong>Dashboard.</strong> Personal excludes linked diagrams; <em>GitHub → Connected repos</em> + branded Connect CTA.</li>
     </ol>
     <table class="tbl">
       <thead><tr><th>Entry</th><th>URL</th></tr></thead>
@@ -183,7 +236,7 @@
   </section>
 
   <section id="shots">
-    <div class="sec-head"><span class="sec-num">02</span><h2>Screenshots</h2></div>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Screenshots</h2></div>
     <p class="sec-sub">Captured from the live local mimic (1440×900).</p>
     <div class="grid two">
       <figure>
@@ -218,18 +271,19 @@
   </section>
 
   <section id="spec">
-    <div class="sec-head"><span class="sec-num">03</span><h2>Spec highlights</h2></div>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Spec highlights</h2></div>
     <ul class="flow">
-      <li><strong>Actions top / AI bottom</strong> — Product × Design Jul 23 (Martin).</li>
+      <li><strong>Pull ≠ Push.</strong> Pull opens Git content in Mermaid; push writes Mermaid content to Git. Review UI is optional on top.</li>
+      <li><strong>V1 open-only is valid</strong> — both directions without Discard/Approve.</li>
+      <li><strong>Actions top / AI bottom</strong> when review mode is on (Martin, Jul 23).</li>
       <li><strong>GitHub green → purple</strong> — open/review vs merged / pushed-to chip.</li>
-      <li><strong>One diagram per review</strong> — no version history in v1.</li>
-      <li><strong>PR remap</strong> — <code>pr=1</code> → <code>356</code> for old bookmarks.</li>
+      <li><strong>One diagram per review</strong> when using review mode — no version history in v1.</li>
       <li><strong>Dashboard GitHub nav</strong> — Connected repos + branded Connect tile.</li>
     </ul>
   </section>
 
   <section id="roads">
-    <div class="sec-head"><span class="sec-num">04</span><h2>Roads not taken</h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Roads not taken</h2></div>
     <p class="sec-sub">See <a href="./docs/DECISIONS.md">DECISIONS.md</a> for the full log.</p>
     <ul class="flow">
       <li>Split DiffPane — parked; single canvas + pill toggle.</li>
@@ -239,7 +293,7 @@
   </section>
 
   <section id="code">
-    <div class="sec-head"><span class="sec-num">05</span><h2>Code to integrate</h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Code to integrate</h2></div>
     <p class="sec-sub">Copy paths and checklist in <a href="./docs/INTEGRATION.md">INTEGRATION.md</a>.</p>
     <ul class="flow">
       <li><code>src/components/ReviewActionBar.svelte</code></li>

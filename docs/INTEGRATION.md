@@ -1,6 +1,16 @@
-# Integration — Plugins / GitHub App review mimic
+# Integration — Plugins / GitHub App
 
 This package is a **design delivery** of a working prototype that spans two product repos.
+
+## Modes to implement
+
+| Mode | Behavior | Review panel? |
+|---|---|---|
+| **Pull open (V1)** | Load `.mmd` from GitHub into unified editor; link `owner/repo[/pr]` | No |
+| **Push write (V1)** | Write current diagram back to Git path/branch | No |
+| **PR review (additive)** | Diff highlights + Discard/Approve + Push stages | Yes — same editor |
+
+Do not require review chrome for open-only pull/push.
 
 ## Source map
 
@@ -40,14 +50,20 @@ Copy from `assets/icons/` into the editor `static/icons/`:
 
 ## Acceptance checklist
 
+### V1 open-only
+- [ ] Pull: open a GitHub `.mmd` in the unified editor without Discard/Approve
+- [ ] Push: write that diagram back to Git without review chrome
+- [ ] Vice versa: create in Mermaid → connect repo → push up
+- [ ] Linked diagrams land under dashboard **GitHub**, not Personal
+
+### Review layer (additive)
 - [ ] Fake PR CTA opens login gate with **#356** meta link
-- [ ] Mimic sign-in lands in unified editor with green added nodes
+- [ ] Mimic sign-in lands in review mode with green added nodes
 - [ ] Discard / Approve float **top-center**; AI sparkle **bottom-center**
 - [ ] Pill shows `#356 +N -M` while pending; toggles Design/Code
 - [ ] Approve → Push → purple “Pushed to” → merged purple merge icon
 - [ ] Sparkle soft-dismisses; pill restarts unfinished review
 - [ ] Hard Discard exits review fully
-- [ ] Dashboard Personal excludes linked diagrams; GitHub section lists them
 - [ ] Connect GitHub repo tile is logo-branded
 
 ## Demo URLs
