@@ -27,7 +27,7 @@
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif;
     font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:740px;margin:0 auto;padding:48px 24px 120px}
+  .wrap{max-width:880px;margin:0 auto;padding:48px 24px 120px}
   a{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(55,53,47,.25);text-underline-offset:2px}
   a:hover{text-decoration-color:var(--ink)}
   .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:32px}
@@ -43,6 +43,50 @@
   .tag.holds{background:var(--green-bg);color:var(--green)}
   .tag.feature{background:#EDE9FE;color:var(--purple)}
   .tag.blocked{background:var(--red-bg);color:var(--red)}
+  /* Visual gap / stages (Notion-plain only) */
+  .stage-rail{display:grid;gap:10px;margin-top:14px;grid-template-columns:1fr}
+  @media (min-width:720px){.stage-rail{grid-template-columns:repeat(5,1fr);gap:8px}}
+  .stage-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:12px 12px 14px;min-height:100%;display:flex;flex-direction:column;gap:8px}
+  .stage-card.you{border-color:var(--purple);box-shadow:inset 0 0 0 1px rgba(91,79,196,.15)}
+  .stage-card .n{font-size:11px;font-weight:600;color:var(--faint);letter-spacing:.04em}
+  .stage-card h3{margin:0;font-size:13.5px;line-height:1.35;font-weight:600;color:var(--ink)}
+  .stage-card .where{font-size:12px;color:var(--muted);line-height:1.45;margin-top:auto}
+  .stage-arrow{display:none}
+  @media (min-width:720px){
+    .stage-rail{align-items:stretch}
+  }
+  .metric-grid{display:grid;gap:10px;margin-top:14px;grid-template-columns:1fr}
+  @media (min-width:640px){.metric-grid{grid-template-columns:repeat(3,1fr)}}
+  .metric{border:1px solid var(--line);border-radius:var(--radius);background:var(--tint);padding:16px 14px;text-align:left}
+  .metric .num{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+  .metric .label{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
+  .record-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .record-chips span{font-size:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;padding:3px 8px;border-radius:4px;background:var(--gray-bg);color:var(--ink)}
+  .dir-grid{display:grid;gap:12px;margin-top:14px;grid-template-columns:1fr}
+  @media (min-width:640px){.dir-grid{grid-template-columns:1fr 1fr}}
+  .dir-card{border:1px solid var(--line);border-radius:var(--radius);padding:0;background:var(--card);border-left:3px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+  .dir-card.pull{border-left-color:var(--green)}
+  .dir-card.push{border-left-color:var(--purple)}
+  .dir-card .dir-body{padding:14px 16px 16px}
+  .dir-card h3{margin:0 0 6px;font-size:15px;font-weight:600}
+  .dir-card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
+  .dir-card .tag{margin-top:10px;display:inline-block}
+  .dir-shot{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top center;border-bottom:1px solid var(--line);background:var(--tint)}
+  .storyboard{display:grid;gap:10px;margin-top:14px;grid-template-columns:1fr}
+  @media (min-width:640px){.storyboard{grid-template-columns:repeat(3,1fr)}}
+  @media (min-width:900px){.storyboard.six{grid-template-columns:repeat(6,1fr)}}
+  .sb-step{margin:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card);display:flex;flex-direction:column}
+  .sb-step a{display:block;color:inherit;text-decoration:none}
+  .sb-step img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top center;background:var(--tint)}
+  .sb-step figcaption{padding:10px 10px 12px;font-size:12.5px;line-height:1.4;color:var(--muted);border-top:1px solid var(--line-soft)}
+  .sb-step figcaption b{display:block;color:var(--ink);font-weight:600;font-size:12.5px;margin-bottom:2px}
+  .sb-step .sb-n{color:var(--faint);font-weight:600;font-size:11px;letter-spacing:.03em;margin-right:4px}
+  .film{display:grid;gap:8px;margin-top:14px;grid-template-columns:repeat(2,1fr)}
+  @media (min-width:720px){.film{grid-template-columns:repeat(4,1fr)}}
+  .film a{display:block;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card);text-decoration:none;color:inherit}
+  .film a:hover{border-color:var(--muted)}
+  .film img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top center}
+  .film span{display:block;padding:8px 10px;font-size:12px;color:var(--muted);border-top:1px solid var(--line-soft)}
   h1{font-size:36px;line-height:1.2;margin:.1em 0 .3em;letter-spacing:-.01em;font-weight:700}
   .sub{font-size:16px;color:var(--muted);max-width:64ch;margin:0}
   .meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px}
@@ -154,71 +198,95 @@
     <div class="sec-head"><span class="sec-num">00</span><h2>Pull vs Push — keep them distinct</h2></div>
     <p class="sec-sub">Same GitHub connection; two jobs. V1 can ship either alone; they also stack with the editor review panel.</p>
 
-    <table class="tbl">
-      <thead><tr><th></th><th>Pull (Git → Mermaid)</th><th>Push (Mermaid → Git)</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>Job</strong></td>
-          <td>Bring a diagram that already lives in a repo into Mermaid AI so the user can open and edit it.</td>
-          <td>Write Mermaid changes back to GitHub (commit / PR branch) after the user decides.</td>
-        </tr>
-        <tr>
-          <td><strong>Typical entry</strong></td>
-          <td>Bot comment · Connect repo CTA · dashboard GitHub section · “open this <code>.mmd</code>”.</td>
-          <td>After review Approve → <em>Push to repo</em>, or a later “save to Git” from a linked diagram.</td>
-        </tr>
-        <tr>
-          <td><strong>Needs PR review UI?</strong></td>
-          <td><strong>No for V1 open-only.</strong> Opening a file is enough — normal editor, no Discard/Approve bar.</td>
-          <td><strong>Optional.</strong> Full review panel when the change came from a PR diff; not required for a plain linked file save.</td>
-        </tr>
-        <tr>
-          <td><strong>Prototype today</strong></td>
-          <td>Gate + seed into unified editor; dashboard <em>Connected repos</em> + Connect CTA.</td>
-          <td>Review action bar stages: Approve → Pushing → Pushed to → merged pill.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="dir-grid">
+      <div class="dir-card pull">
+        <a href="#shot-01"><img class="dir-shot" src="./assets/screenshots/01-fake-pr-comment.png" alt="Fake PR with Mermaid Sync bot comment" /></a>
+        <div class="dir-body">
+          <h3>↓ Pull · Git → Mermaid</h3>
+          <p>Bring a diagram that already lives in a repo into Mermaid AI so the user can open and edit it.</p>
+          <span class="tag holds">V1: just open</span>
+          <p style="margin-top:10px;font-size:12.5px">Entry: bot comment · Connect CTA · dashboard GitHub · open <code>.mmd</code></p>
+        </div>
+      </div>
+      <div class="dir-card push">
+        <a href="#shot-04"><img class="dir-shot" src="./assets/screenshots/04-editor-push-ready.png" alt="Editor ready to push to repo" /></a>
+        <div class="dir-body">
+          <h3>↑ Push · Mermaid → Git</h3>
+          <p>Write Mermaid changes back to GitHub (commit / PR branch) after the user decides.</p>
+          <span class="tag holds">V1: save / write</span>
+          <p style="margin-top:10px;font-size:12.5px">Entry: Approve → Push to repo, or save a linked diagram — review UI optional</p>
+        </div>
+      </div>
+    </div>
 
     <div class="callout" style="margin-top:18px">
       <b>V1 can be open-only (both ways).</b>
-      Ship a thin loop first: <em>pull</em> = open a GitHub <code>.mmd</code> in Mermaid; <em>push</em> = write that diagram back to the same path/branch — <strong>without</strong> the PR review panel (no diff counts, no Discard/Approve). The review panel is an additive layer on the same editor when the entry was a PR change, not a separate product.
+      Review panel is an additive layer on the same editor when the entry was a PR change — not a separate product. Vice versa: start in Mermaid → connect → push up, still without review chrome.
     </div>
-
-    <h3 style="font-size:15px;margin:22px 0 8px;font-weight:600;color:var(--ink)">How they live together in the editor</h3>
-    <ul class="flow">
-      <li><strong>Always shared:</strong> unified canvas, AI sparkle, linked-repo metadata (owner / repo / file), dashboard GitHub section.</li>
-      <li><strong>Open-only mode (V1 thin):</strong> diagram loads like any Mermaid file; pill may show repo/PR as a <em>link badge</em> only — no review actions.</li>
-      <li><strong>Review mode (additive):</strong> same editor + top Discard/Approve (or Push stages) + green/red diff affordances + soft-dismiss via AI. Pull brought the before/after in; push sends the approved after back.</li>
-      <li><strong>Vice versa:</strong> user can start in Mermaid (create/edit), connect GitHub, and <em>push</em> a new or updated diagram into the repo — still without requiring a PR-review session.</li>
-    </ul>
   </section>
 
   <section id="gap">
     <div class="sec-head"><span class="sec-num">01</span><h2>What exists, what's missing</h2></div>
-    <p class="sec-sub">Four stages. This page is stage 3.</p>
+    <p class="sec-sub">Five stages. This page is <b>Review &amp; push</b>.</p>
 
-    <table class="tbl">
-      <thead><tr><th>Stage</th><th>State</th><th>Where</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Connect GitHub</strong></td><td><span class="tag holds">Shipped</span></td><td>AT-517, AT-513, AT-415</td></tr>
-        <tr><td><strong>Generate from source files</strong></td><td><span class="tag holds">Shipped</span></td><td>AT-505, AT-506</td></tr>
-        <tr><td><strong>Import existing diagrams</strong></td><td><span class="tag blocked">Blocked</span></td><td>AT-37 — branch pushed 4 May, Blocked same day, 7 sprints since</td></tr>
-        <tr><td><strong>Review &amp; push back</strong></td><td><span class="tag feature">Prototyped</span></td><td>This page, + AT-413 released</td></tr>
-        <tr><td><strong>Stay synced</strong></td><td><span class="tag blocked">Not started</span></td><td>Needs a link record — nothing today</td></tr>
-      </tbody>
-    </table>
-
-    <div class="callout" style="margin-top:18px">
-      <b>The missing piece is one record.</b> <code>{ repo, branch, path, diagramID, direction, lastSyncedSHA }</code> — everything shipped is one-shot: import once, generate once, regenerate once. The dashboard already renders "GitHub-linked diagrams," which assumes this exists. It doesn't. This plus its fan-out is the only genuinely new backend work.
+    <div class="stage-rail" aria-label="Loop stages">
+      <div class="stage-card">
+        <span class="n">01</span>
+        <h3>Connect GitHub</h3>
+        <span class="tag holds">Shipped</span>
+        <p class="where">AT-517 · AT-513 · AT-415</p>
+      </div>
+      <div class="stage-card">
+        <span class="n">02</span>
+        <h3>Generate from source</h3>
+        <span class="tag holds">Shipped</span>
+        <p class="where">AT-505 · AT-506</p>
+      </div>
+      <div class="stage-card">
+        <span class="n">03</span>
+        <h3>Import existing</h3>
+        <span class="tag blocked">Blocked</span>
+        <p class="where">AT-37 · branch 4 May · Blocked same day · 7 sprints</p>
+      </div>
+      <div class="stage-card you">
+        <span class="n">04 · THIS PAGE</span>
+        <h3>Review &amp; push back</h3>
+        <span class="tag feature">Prototyped</span>
+        <p class="where">This delivery · AT-413 released</p>
+        <a href="#shot-03" style="display:block;margin-top:4px;border-radius:4px;overflow:hidden;border:1px solid var(--line)">
+          <img src="./assets/screenshots/03-editor-review-pending.png" alt="" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top center" />
+        </a>
+      </div>
+      <div class="stage-card">
+        <span class="n">05</span>
+        <h3>Stay synced</h3>
+        <span class="tag blocked">Not started</span>
+        <p class="where">Needs a link record — nothing today</p>
+      </div>
     </div>
 
-    <h3 style="font-size:15px;margin:22px 0 8px;font-weight:600;color:var(--ink)">Three numbers</h3>
-    <ul class="flow">
-      <li><strong>40.5k</strong> bot regenerations / 60d, at a new high — the repo side already runs at scale, and knows nothing about cloud diagrams.</li>
-      <li><strong>63k vs 15</strong> — Generate-from-Code vs pre-commit auto-regenerate, 30d. Users pull happily and never accept an automatic push. Sync must be offered, not performed.</li>
-      <li><strong>2%</strong> activation&rarr;login in VS Code (609k &rarr; 11.7k / 90d). The IDE review surface has run ~10 resolution actions in 90 days — not because it's bad, because of that ceiling. Web app users are already signed in. That's the case for doing this app-side.</li>
-    </ul>
+    <div class="callout" style="margin-top:18px">
+      <b>The missing piece is one record.</b> Everything shipped is one-shot. The dashboard already renders “GitHub-linked diagrams,” which assumes this exists — it doesn’t.
+      <div class="record-chips" aria-label="Link record fields">
+        <span>repo</span><span>branch</span><span>path</span><span>diagramID</span><span>direction</span><span>lastSyncedSHA</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;margin:22px 0 0;font-weight:600;color:var(--ink)">Three numbers</h3>
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="num">40.5k</div>
+        <div class="label">bot regenerations / 60d — new high. Repo side scales; knows nothing about cloud diagrams.</div>
+      </div>
+      <div class="metric">
+        <div class="num">63k <span style="font-size:16px;font-weight:500;color:var(--muted)">vs</span> 15</div>
+        <div class="label">Generate-from-Code vs pre-commit auto-regenerate / 30d. Sync must be offered, not performed.</div>
+      </div>
+      <div class="metric">
+        <div class="num">2%</div>
+        <div class="label">VS Code activation→login (609k → 11.7k / 90d). ~10 IDE review resolutions / 90d — do this app-side.</div>
+      </div>
+    </div>
   </section>
 
   <section id="live">
@@ -237,22 +305,40 @@
 
   <section id="flows">
     <div class="sec-head"><span class="sec-num">03</span><h2>User flows</h2></div>
-    <p class="sec-sub">Thin V1 (open) vs full review+push. Same editor shell.</p>
+    <p class="sec-sub">Thin V1 (open) vs full review+push. Same editor shell — storyboard from the live mimic.</p>
 
-    <h3 style="font-size:15px;margin:0 0 8px;font-weight:600">A · V1 open-only (no PR review panel)</h3>
-    <ol class="flow">
-      <li><strong>Pull open.</strong> From PR comment, Connect CTA, or Linked file → sign-in if needed → diagram opens in the unified editor as a normal linked file.</li>
-      <li><strong>Edit in Mermaid.</strong> Full AI / Build / Code — no Discard/Approve bar.</li>
-      <li><strong>Push back (optional).</strong> Save / write to the same Git path (vice versa: start in Mermaid → connect repo → push diagram up). Still no review chrome required.</li>
-    </ol>
+    <h3 style="font-size:15px;margin:0 0 4px;font-weight:600">B · PR review + push</h3>
+    <p style="margin:0 0 4px;font-size:13.5px;color:var(--muted)">What the mimic demos today.</p>
+    <div class="storyboard six" aria-label="Review and push storyboard">
+      <figure class="sb-step">
+        <a href="#shot-01"><img src="./assets/screenshots/01-fake-pr-comment.png" alt="" /><figcaption><b><span class="sb-n">01</span> Fake PR</b>Bot comment → Open full review</figcaption></a>
+      </figure>
+      <figure class="sb-step">
+        <a href="#shot-02"><img src="./assets/screenshots/02-login-gate.png" alt="" /><figcaption><b><span class="sb-n">02</span> Login gate</b>Repo / PR #356 / file</figcaption></a>
+      </figure>
+      <figure class="sb-step">
+        <a href="#shot-03"><img src="./assets/screenshots/03-editor-review-pending.png" alt="" /><figcaption><b><span class="sb-n">03</span> Review</b>Discard / Approve top · AI bottom</figcaption></a>
+      </figure>
+      <figure class="sb-step">
+        <a href="#shot-04"><img src="./assets/screenshots/04-editor-push-ready.png" alt="" /><figcaption><b><span class="sb-n">04</span> Push ready</b>Push to repo</figcaption></a>
+      </figure>
+      <figure class="sb-step">
+        <a href="#shot-05"><img src="./assets/screenshots/05-editor-pushed.png" alt="" /><figcaption><b><span class="sb-n">05</span> Pushed</b>Purple chip → merged</figcaption></a>
+      </figure>
+      <figure class="sb-step">
+        <a href="#shot-07"><img src="./assets/screenshots/07-dashboard-github.png" alt="" /><figcaption><b><span class="sb-n">07</span> Dashboard</b>Connected repos + Connect CTA</figcaption></a>
+      </figure>
+    </div>
 
-    <h3 style="font-size:15px;margin:22px 0 8px;font-weight:600">B · PR review + push (what the mimic demos today)</h3>
-    <ol class="flow">
-      <li><strong>Open from PR.</strong> Bot comment → <em>Open full review</em> → login gate (repo / PR #356 / file) → Sign in (mimic) → unified editor <em>in review mode</em>.</li>
-      <li><strong>Review on canvas.</strong> Green added nodes; pill <code>#356 +6 -0</code>; Design/Code via pill; Discard / Approve top-center; AI sparkle bottom-center (soft-dismiss / restart).</li>
-      <li><strong>Approve &amp; push.</strong> Push to repo → Pushing… → Pushed to (purple) → merged pill/tag on dashboard.</li>
-      <li><strong>Dashboard.</strong> Personal excludes linked diagrams; <em>GitHub → Connected repos</em> + branded Connect CTA.</li>
-    </ol>
+    <h3 style="font-size:15px;margin:22px 0 4px;font-weight:600">A · V1 open-only</h3>
+    <p style="margin:0;font-size:13.5px;color:var(--muted)">No Discard/Approve — open a linked <code>.mmd</code>, edit, optionally write back. Personal stays separate from GitHub.</p>
+    <div class="film" style="margin-top:10px">
+      <a href="#shot-01"><img src="./assets/screenshots/01-fake-pr-comment.png" alt="" /><span>01 · Entry from PR</span></a>
+      <a href="#shot-02"><img src="./assets/screenshots/02-login-gate.png" alt="" /><span>02 · Sign-in if needed</span></a>
+      <a href="#shot-06"><img src="./assets/screenshots/06-dashboard-personal.png" alt="" /><span>06 · Personal (no linked)</span></a>
+      <a href="#shot-07"><img src="./assets/screenshots/07-dashboard-github.png" alt="" /><span>07 · GitHub section</span></a>
+    </div>
+
     <table class="tbl">
       <thead><tr><th>Entry</th><th>URL</th></tr></thead>
       <tbody>
@@ -266,33 +352,33 @@
 
   <section id="shots">
     <div class="sec-head"><span class="sec-num">04</span><h2>Screenshots</h2></div>
-    <p class="sec-sub">Captured from the live local mimic (1440×900).</p>
+    <p class="sec-sub">Full frames from the live local mimic (1440×900). Click thumbnails above to jump here.</p>
     <div class="grid two">
-      <figure>
+      <figure id="shot-01">
         <h3>01 · Fake PR comment</h3>
         <img class="shot" src="./assets/screenshots/01-fake-pr-comment.png" alt="Fake GitHub PR with Mermaid Sync bot comment" />
       </figure>
-      <figure>
+      <figure id="shot-02">
         <h3>02 · Login gate</h3>
         <img class="shot" src="./assets/screenshots/02-login-gate.png" alt="Review login gate with PR meta" />
       </figure>
-      <figure>
+      <figure id="shot-03">
         <h3>03 · Editor — review pending</h3>
         <img class="shot" src="./assets/screenshots/03-editor-review-pending.png" alt="Unified editor with Discard Approve and green nodes" />
       </figure>
-      <figure>
+      <figure id="shot-04">
         <h3>04 · Push ready</h3>
         <img class="shot" src="./assets/screenshots/04-editor-push-ready.png" alt="Push to repo action bar" />
       </figure>
-      <figure>
+      <figure id="shot-05">
         <h3>05 · Pushed / merged transition</h3>
         <img class="shot" src="./assets/screenshots/05-editor-pushed.png" alt="After push confirmation" />
       </figure>
-      <figure>
+      <figure id="shot-06">
         <h3>06 · Dashboard — Personal</h3>
         <img class="shot" src="./assets/screenshots/06-dashboard-personal.png" alt="Personal files without GitHub cards" />
       </figure>
-      <figure>
+      <figure id="shot-07">
         <h3>07 · Dashboard — GitHub + Connect CTA</h3>
         <img class="shot" src="./assets/screenshots/07-dashboard-github.png" alt="GitHub section with connect tile and linked diagram" />
       </figure>
