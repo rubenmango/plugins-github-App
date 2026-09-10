@@ -1,5 +1,16 @@
 # Decisions — Plugins / GitHub App
 
+## Eng confirmation (Sep 2026)
+
+For the **GitHub diagram sync** Mermaid app, the product already:
+
+1. Shows diagram changes **directly in the PR comment**
+2. Lets the user open the **review link** from that comment
+3. Signs them into **Mermaid** and reviews there
+4. On approve, **pushes** the updated diagram back to GitHub from the review UI
+
+That is the live **git review → mermaid.ai** flow. This delivery package is UX chrome / mimic for that loop (and adjacent dashboard affordances) — not a proposal to invent the loop from scratch. Import / durable sync may still have gaps; don’t re-scope the whole pipeline as new.
+
 ## Pull vs Push (must stay clear)
 
 | Direction | Meaning | V1 without review? |

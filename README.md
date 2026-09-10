@@ -1,8 +1,9 @@
 # Plugins / GitHub App — Developer Delivery
 
-Shareable handoff for **GitHub ↔ Mermaid.AI**: **pull** diagrams from Git into
-Mermaid, **push** them back, and optionally run a **PR review panel** in the
-same unified editor.
+Shareable handoff for **GitHub ↔ Mermaid.AI**. Eng confirms the **git review → mermaid.ai**
+loop already ships (PR comment shows diagram changes → open review → sign in → approve →
+push back). This package is the **UX chrome** for that path — pull/push clarity, review
+actions, pills, dashboard — not a greenfield flow.
 
 Repo name: **`plugins-github-App`** (GitHub cannot use `/` in repo names; the
 product label is still *Plugins / GitHub App*).

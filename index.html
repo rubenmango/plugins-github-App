@@ -183,15 +183,15 @@ window.DELIVERY_GATE = {
   </div>
 
   <div class="pill-row">
-    <span class="tag holds">● Prototype ready</span>
+    <span class="tag holds">● Product flow ships</span>
     <span class="tag feature">Plugins / GitHub App</span>
-    <span class="tag">Updated 8 Sep 2026</span>
+    <span class="tag">Updated 10 Sep 2026</span>
   </div>
   <h1>GitHub App ↔ Mermaid.AI<br>delivery</h1>
-  <p class="sub">Designer→developer handoff for two directions — <b>pull</b> diagrams from Git into Mermaid and <b>push</b> changes back — plus an optional PR review panel that lives inside the unified editor.</p>
+  <p class="sub">UX handoff for the <b>git review → mermaid.ai</b> loop that already ships in the GitHub diagram sync app: PR comment shows diagram changes → open review → sign in → approve → push back to GitHub. This page aligns chrome (editor actions, pills, dashboard) with that flow — not a greenfield product.</p>
   <div class="meta">
     <div><b>Method</b>Working mimic + Figma Plugin chrome</div>
-    <div><b>Metric</b>Cohesive GitHub UX across plugins + platform</div>
+    <div><b>Eng note</b>Core PR → Mermaid → push loop confirmed shipped</div>
     <div><b>Author</b>Ruben Mangorrinha</div>
   </div>
 
@@ -241,7 +241,12 @@ window.DELIVERY_GATE = {
 
   <section id="gap">
     <div class="sec-head"><span class="sec-num">01</span><h2>What exists, what's missing</h2></div>
-    <p class="sec-sub">Five stages. This page is <b>Review &amp; push</b>.</p>
+    <p class="sec-sub">Five stages. <b>Review &amp; push</b> (git review → mermaid.ai) already ships in the product — this delivery is the UX chrome on top of that loop.</p>
+
+    <div class="callout" style="margin-bottom:14px">
+      <b>Eng confirmation (Sep 2026).</b>
+      For the GitHub diagram sync Mermaid app: diagram changes show <em>directly in the PR comment</em>. User opens the review link → signs in to Mermaid → reviews there → on approve, pushes the updated diagram back to GitHub from the review UI. That is the live <strong>git review → mermaid.ai</strong> flow. Other stages on this rail may already be done; don’t treat the whole loop as net-new.
+    </div>
 
     <div class="stage-rail" aria-label="Loop stages">
       <div class="stage-card">
@@ -265,8 +270,8 @@ window.DELIVERY_GATE = {
       <div class="stage-card you">
         <span class="n">04 · THIS PAGE</span>
         <h3>Review &amp; push back</h3>
-        <span class="tag feature">Prototyped</span>
-        <p class="where">This delivery · AT-413 released</p>
+        <span class="tag holds">Shipped · UX</span>
+        <p class="where">Product loop live · this page = chrome / mimic</p>
         <a href="#shot-03" style="display:block;margin-top:4px;border-radius:4px;overflow:hidden;border:1px solid var(--line)">
           <img src="./assets/screenshots/03-editor-review-pending.png" alt="" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top center" />
         </a>
@@ -274,13 +279,13 @@ window.DELIVERY_GATE = {
       <div class="stage-card">
         <span class="n">05</span>
         <h3>Stay synced</h3>
-        <span class="tag blocked">Not started</span>
-        <p class="where">Needs a link record — nothing today</p>
+        <span class="tag blocked">Gap</span>
+        <p class="where">Durable link record still the open question</p>
       </div>
     </div>
 
     <div class="callout" style="margin-top:18px">
-      <b>The missing piece is one record.</b> Everything shipped is one-shot. The dashboard already renders “GitHub-linked diagrams,” which assumes this exists — it doesn’t.
+      <b>Still open: one durable link record.</b> The review→push path works for a PR session. Ongoing “GitHub-linked diagram” identity across visits still needs a record the dashboard can trust.
       <div class="record-chips" aria-label="Link record fields">
         <span>repo</span><span>branch</span><span>path</span><span>diagramID</span><span>direction</span><span>lastSyncedSHA</span>
       </div>
@@ -305,7 +310,7 @@ window.DELIVERY_GATE = {
 
   <section id="live">
     <div class="sec-head"><span class="sec-num">02</span><h2>Live review chrome</h2></div>
-    <p class="sec-sub">This stepper is the <strong>additive review / push</strong> layer (not the open-only V1). Step through Discard/Approve → Push → merged.</p>
+    <p class="sec-sub">Mimic of the <strong>shipped</strong> review / push layer: PR comment → Mermaid review → Approve → Push to GitHub. Step Discard/Approve → Push → merged.</p>
     <div class="seeds">
       <button type="button" data-seed="pending">Pending</button>
       <button type="button" data-seed="ready">Push ready</button>
@@ -319,10 +324,10 @@ window.DELIVERY_GATE = {
 
   <section id="flows">
     <div class="sec-head"><span class="sec-num">03</span><h2>User flows</h2></div>
-    <p class="sec-sub">Thin V1 (open) vs full review+push. Same editor shell — storyboard from the live mimic.</p>
+    <p class="sec-sub">Shipped product path (B) vs thinner open-only (A). Same editor shell — storyboard from the mimic.</p>
 
-    <h3 style="font-size:15px;margin:0 0 4px;font-weight:600">B · PR review + push</h3>
-    <p style="margin:0 0 4px;font-size:13.5px;color:var(--muted)">What the mimic demos today.</p>
+    <h3 style="font-size:15px;margin:0 0 4px;font-weight:600">B · PR review + push <span class="tag holds" style="margin-left:6px;vertical-align:middle">Ships today</span></h3>
+    <p style="margin:0 0 4px;font-size:13.5px;color:var(--muted)">Git review → mermaid.ai: diagram diff in PR comment → open review → sign in → approve → push back to GitHub.</p>
     <div class="storyboard six" aria-label="Review and push storyboard">
       <figure class="sb-step">
         <a href="#shot-01"><img src="./assets/screenshots/01-fake-pr-comment.png" alt="" /><figcaption><b><span class="sb-n">01</span> Fake PR</b>Bot comment → Open full review</figcaption></a>
@@ -402,14 +407,15 @@ window.DELIVERY_GATE = {
   <section id="spec">
     <div class="sec-head"><span class="sec-num">05</span><h2>Spec highlights</h2></div>
     <ul class="flow">
-      <li><strong>Pull ≠ Push.</strong> Pull opens Git content in Mermaid; push writes Mermaid content to Git. Review UI is optional on top.</li>
-      <li><strong>V1 open-only is valid</strong> — both directions without Discard/Approve.</li>
+      <li><strong>Shipped loop (eng).</strong> PR comment shows diagram changes → open review → Mermaid sign-in → review → approve → push diagram back to GitHub. That is git review → mermaid.ai today.</li>
+      <li><strong>Pull ≠ Push.</strong> Pull opens Git content in Mermaid; push writes Mermaid content to Git. Review UI sits on that path when the entry is a PR diff.</li>
+      <li><strong>V1 open-only remains valid</strong> for non-PR linked files — both directions without Discard/Approve.</li>
       <li><strong>Actions top / AI bottom</strong> when review mode is on (Martin, Jul 23).</li>
       <li><strong>GitHub green → purple</strong> — open/review vs merged / pushed-to chip.</li>
       <li><strong>One diagram per review</strong> when using review mode — no version history in v1.</li>
       <li><strong>Dashboard GitHub nav</strong> — Connected repos + branded Connect tile.</li>
       <li><strong>On-demand pull, never background push</strong> — 63k Generate-from-Code vs 15 pre-commit regenerate in 30d.</li>
-      <li><strong>Multi-diagram is a refactor, not a rewrite</strong> — the review list already ships in VS Code (PLUG-73); PLUG-82 extracts the shared diff component and is still To Do. Import produces many diagrams at once, so the one-per-review limit bites immediately.</li>
+      <li><strong>Multi-diagram is a refactor, not a rewrite</strong> — the review list already ships in VS Code (PLUG-73); PLUG-82 extracts the shared diff component and is still To Do.</li>
     </ul>
   </section>
 
